@@ -1,0 +1,35 @@
+---
+const { title, code } = Astro.props;
+---
+
+<section
+  x-data="{showCode: false}"
+  class="border border-gray-300 rounded-lg overflow-hidden shadow-sm"
+>
+  <div class="p-6 bg-gray-50 dark:bg-gray-800 flex justify-center items-center">
+    <slot />
+  </div>
+  <!-- Tombol Show/Hide Code -->
+  <div
+    class="border-t-4 border-black bg-yellow-200 p-3 flex justify-between items-center"
+  >
+    <span class="font-bold">{title || "Preview"}</span>
+    <button
+      @click="showCode = !showCode"
+      class="border-2 border-black bg-white px-4 py-1 font-semibold rounded-lg shadow-[3px_3px_0_#000] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-transform cursor-pointer"
+    >
+      <span x-show="!showCode">Show Code</span>
+      <span x-show="showCode">Hide Code</span>
+    </button>
+  </div>
+  <!-- Tombol Show/Hide Code -->
+  <div
+    x-show="showCode"
+    x-transition
+    class="bg-black text-white text-sm p-4 overflow-x-auto"
+  >
+    <pre>
+        <code>{code}</code>
+      </pre>
+  </div>
+</section>

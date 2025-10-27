@@ -1,0 +1,80 @@
+---
+import FrontLayout from "@/layouts/FrontLayout.astro";
+import "../styles/global.css";
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<FrontLayout>
+  <section
+    class="bg-neutral-100 text-center border border-stone-300 lg:h-[60vh] h-[80vh] w-full flex items-center"
+  >
+    <div class="mx-auto max-w-7xl px-4 py-8 lg:py-12">
+      <div class="flex flex-col items-center justify-center gap-4">
+        <h1 class="text-lg text-stone-700">
+          An open-source collection of copy-and-paste components for quickly
+          building application UIs.
+        </h1>
+        <h2
+          class="order-first xl:text-6xl text-4xl font-bold text-stone-900 sm:text-6xl"
+        >
+          Beautiful UI Components build with Tailwind CSS and Alphine JS.
+        </h2>
+      </div>
+
+      <div class="flex justify-center mt-3">
+        <button
+          type="button"
+          class="relative flex gap-2 items-center text-lg font-bold hover:text-foreground/80 sm:text-sm p-2 border border-black shadow-[4px_4px_0_0_#000] transition-all hover:translate-x-[3px] hover:translate-y-[3px] dark:hover:shadow-none hover:shadow-none dark:border-white dark:bg-zinc-800 dark:shadow-[4px_4px_0_0_#fff] cursor-pointer"
+          >Get Started <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-move-right-icon lucide-move-right"
+            ><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg
+          ></button
+        >
+      </div>
+    </div>
+  </section>
+  <section class="bg-neutral-100 w-full lg:h-[60vh]">
+    <div class="mx-auto max-w-7xl space-y-8 py-3 px-4 pb-8">
+      <a href="/" class="inline-block"
+        ><h2 class="text-2xl lg:text-3xl font-bold">
+          ✅ Available Components
+        </h2></a
+      >
+      <ul class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <li>
+          <a
+            href="/docs/accordion"
+            class="flex h-full flex-col border border-black p-4 shadow-[3px_3px_0_0_#000]"
+            ><span aria-hidden="true" class="text-xl">📃</span>
+            <p class="mt-4 text-sm text-stone-700"><span>1 Component</span></p>
+            <h2 class="mt-1 font-medium text-pretty text-stone-900 sm:text-lg">
+              Accordion
+            </h2>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/"
+            class="flex h-full border border-black p-4 shadow-[3px_3px_0_0_#000]"
+          ></a>
+        </li>
+        <li>
+          <a
+            href="/"
+            class="flex h-full border border-black p-4 shadow-[3px_3px_0_0_#000]"
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</FrontLayout>
