@@ -123,3 +123,14 @@
   }
 }
 
+@layer components {
+  .neo-palette {
+    @apply border border-black shadow-[6px_6px_0_0_#000] dark:border-white dark:shadow-[6px_6px_0_0_#fff]
+           bg-white dark:bg-zinc-800 rounded-none;
+  }
+  .neo-palette-item {
+    @apply flex items-center justify-between p-3 border border-black hover:translate-x-[3px] hover:translate-y-[3px]
+           hover:shadow-none transition-all cursor-pointer font-bold text-sm dark:border-white;
+  }
+}
+
