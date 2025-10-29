@@ -3,7 +3,7 @@ import "../../styles/global.css";
 ---
 
 <header
-  class="fixed top-0 w-full z-50 border-b border-black dark:border-white dark:bg-background bg-neutral-100"
+  class="fixed top-0 w-full z-50 border-b border-black dark:border-white dark:bg-background bg-neutral-100/90 backdrop-blur-sm"
 >
   <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
     <nav class="flex flex-1 items-center gap-8">
@@ -18,15 +18,12 @@ import "../../styles/global.css";
         <a
           href="/"
           class="relative flex items-center text-lg font-bold hover:text-foreground/80 sm:text-sm p-2 border border-black shadow-[4px_4px_0_0_#000] transition-all hover:translate-x-[3px] hover:translate-y-[3px] dark:hover:shadow-none hover:shadow-none dark:border-white dark:bg-zinc-800 dark:shadow-[4px_4px_0_0_#fff] bg-pink-400 text-white"
-          aria-label="Home"
-          >Home</a
+          aria-label="Home">Home</a
         >
-
         <a
           href="/docs/accordion"
           class="relative flex items-center text-lg font-bold hover:text-foreground/80 sm:text-sm p-2 border border-black shadow-[4px_4px_0_0_#000] transition-all hover:translate-x-[3px] hover:translate-y-[3px] dark:hover:shadow-none hover:shadow-none dark:border-white dark:bg-zinc-800 dark:shadow-[4px_4px_0_0_#fff]"
-          aria-label="Components"
-          >Components</a
+          aria-label="Components">Components</a
         >
       </div>
     </nav>
@@ -133,34 +130,47 @@ import "../../styles/global.css";
     </div>
     <h1>Suggestions :</h1>
     <div class="flex flex-col gap-2 max-h-64 overflow-y-auto">
-
-      <div class="command-item neo-btn bg-pink-300 dark:bg-pink-600/40 py-2 mr-3">
+      <div
+        class="command-item neo-btn bg-pink-300 dark:bg-pink-600/40 py-2 mr-3"
+      >
         🏠 Home
       </div>
       <div class="command-item neo-btn">🧩 Components</div>
       <div class="command-item neo-btn">🌗 Dark Mode</div>
     </div>
-    <button data-close-search class="neo-btn bg-pink-400 text-white self-end px-3 py-2"
-      >ESC</button
+    <button
+      data-close-search
+      class="neo-btn bg-pink-400 text-white self-end px-3 py-2">ESC</button
     >
   </div>
 </div>
 <!-- Mobile Menu -->
 <div id="menuOverlay" class="fixed inset-0 bg-black/40 hidden z-55"></div>
-<div id="mobileMenu" class="fixed top-0 right-0 h-full w-64 bg-white dark:bg-zinc-900 border-l border-black transform translate-x-full transition-transform duration-300 z-60">
+<div
+  id="mobileMenu"
+  class="fixed top-0 right-0 h-full w-64 bg-white/90 backdrop-blur-md dark:bg-zinc-900 border-l border-black transform translate-x-full transition-transform duration-300 z-60"
+>
   <nav class="flex flex-col p-6 gap-4">
-    <a href="/" class="neo-btn bg-pink-400 text-dark border border-black py-2 px-2" aria-label="Home">Home</a>
-    <a href="/docs/accordion" class="neo-btn border border-black py-2 px-2" aria-label="Comoponents">Components</a>
+    <a
+      href="/"
+      class="neo-btn bg-pink-400 text-dark border border-black py-2 px-2"
+      aria-label="Home">Home</a
+    >
+    <a
+      href="/docs/accordion"
+      class="neo-btn border border-black py-2 px-2"
+      aria-label="Comoponents">Components</a
+    >
   </nav>
 </div>
 
 <style>
-.neo-btn {
-  box-shadow: 4px 4px 0 #000;
-  transition: all 0.2s ease;
-}
-.neo-btn:active {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 #000;
-}
+  .neo-btn {
+    box-shadow: 4px 4px 0 #000;
+    transition: all 0.2s ease;
+  }
+  .neo-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 #000;
+  }
 </style>
