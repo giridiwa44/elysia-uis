@@ -29,21 +29,28 @@ import "../../styles/global.css";
     </nav>
     <div class="hidden md:block">
       <button
-        data-open-search
-        type="button"
-        class="py-2 px-3 border border-black shadow-[3px_3px_0_0_#000] dark:shadow-[3px_3px_0_0_#fff] dark:border-white cursor-pointer flex gap-4"
-        aria-label="SearchButton"
+        id="searchBtn"
+        class="py-2 px-3 border border-black dark:border-white gap-4 cursor-pointer flex items-center"
+        aria-label="Search Button"
       >
-        <span class="text-gray-400">Search Components ....</span>
         <span
-          ><kbd
-            class="py-1 px-2 border border-black shadow-[3px_3px_0_0_#000] dark:border-foreground dark:shadow-[3px_3px_0_0_#fff]"
-            >Ctrl</kbd
-          > + <kbd
-            class="py-1 px-2 border border-black shadow-[3px_3px_0_0_#000] dark:border-foreground dark:shadow-[3px_3px_0_0_#fff]"
-            >K</kbd
-          >
-        </span>
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-search-icon lucide-search w-5 h-5"
+            ><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"
+            ></circle></svg
+          ></span
+        >
+        <span class="text-gray-500">Search Component ....</span>
+        <span>⌘K</span>
       </button>
     </div>
     <button
@@ -99,49 +106,69 @@ import "../../styles/global.css";
 <!-- Search Modal -->
 <div
   id="searchModal"
-  class="fixed inset-0 hidden justify-center items-start pt-32 bg-black/40 backdrop-blur-sm opacity-0 scale-95 transition-all duration-200 z-60"
+  class="hidden fixed inset-0 z-9999 bg-black/40 backdrop-blur-sm justify-center items-start pt-24 transition-all duration-200 opacity-0 scale-95 w-full"
 >
   <div
-    class="neo-card w-[90%] max-w-lg p-4 flex flex-col gap-3 bg-white dark:bg-zinc-800"
+    class="bg-white dark:bg-neutral-900 rounded-xl w-full max-w-md shadow border border-gray-300"
   >
-    <div
-      class="flex items-center px-3 border-2 border-black bg-white shadow-[2px_2px_0_0_#000] transition-all hover:translate-x-px hover:translate-y-px dark:hover:shadow-none hover:shadow-none dark:border-white dark:bg-zinc-800 dark:shadow-[2px_2px_0_0_#fff]"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-search-icon lucide-search mr-2 size-4 shrink-0 opacity-50"
-        ><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"
-        ></circle></svg
+    <button class="w-full flex items-center border-b border-gray-200">
+      <span class="ml-5"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-search-icon lucide-search w-5 h-5"
+          ><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"
+          ></circle></svg
+        ></span
       >
       <input
-        id="commandInput"
         type="text"
-        placeholder="Type a command..."
-        class="border border-none p-2 dark:bg-zinc-700 dark:text-white outline-none w-full"
+        id="searchInput"
+        placeholder="Ketik untuk mencari ..."
+        class="w-full px-4 py-3 outline-none dark:border-neutral-700 focus:outline-none bg-transparent"
       />
-    </div>
-    <h1>Suggestions :</h1>
-    <div class="flex flex-col gap-2 max-h-64 overflow-y-auto">
-      <div
-        class="command-item neo-btn bg-pink-300 dark:bg-pink-600/40 py-2 mr-3"
+    </button>
+    <div class="max-h-60 overflow-y-auto">
+      <a
+        href="/docs/accordion"
+        class="command-item block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800"
+        >🧩 Accordion</a
       >
-        🏠 Home
-      </div>
-      <div class="command-item neo-btn">🧩 Components</div>
-      <div class="command-item neo-btn">🌗 Dark Mode</div>
+      <a
+        href="/docs/alert"
+        class="command-item block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800"
+        >📣 Alert</a
+      >
+      <a
+        href="/docs/colorpicker"
+        class="command-item block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800"
+        >🎨 Color Picker</a
+      >
+      <a
+        href="/docs/datepicker"
+        class="command-item block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800"
+        >📆 Date Picker</a
+      >
     </div>
-    <button
-      data-close-search
-      class="neo-btn bg-pink-400 text-white self-end px-3 py-2">ESC</button
+    <!-- Footer -->
+    <div
+      class="px-4 py-3 bg-gray-50 dark:bg-neutral-800 rounded-b-lg border-t border-gray-200 dark:border-neutral-700 flex items-center justify-between text-sm text-gray-600 dark:text-neutral-400"
     >
+      <span
+        >Tekan <kbd
+          class="px-2 py-1 text-xs font-semibold bg-gray-200 dark:bg-neutral-700 rounded-md"
+          >Esc</kbd
+        > untuk menutup</span
+      >
+      <span class="italic text-xs">✨ Elysia UI Command Palette</span>
+    </div>
   </div>
 </div>
 <!-- Mobile Menu -->

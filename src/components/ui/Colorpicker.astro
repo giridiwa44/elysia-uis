@@ -1,0 +1,36 @@
+---
+/**
+ * 
+ * Color Picker - Giri Diwa Adam 
+ */
+---
+<div x-data="{ color: '#14b8a6', copied: false }" class="flex  bg-gray-50">
+  <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 w-full max-w-md">
+    <h2 class="text-base font-semibold text-gray-800 mb-2">Choose a color</h2>
+
+    <div class="flex items-center gap-3 border border-gray-300 rounded-lg px-3 py-2">
+      <input
+        type="color"
+        x-model="color"
+        class="w-8 h-8 border-none rounded-full cursor-pointer bg-transparent"
+      />
+      <input
+        type="text"
+        x-model="color"
+        class="flex-1 border-none focus:ring-0 text-gray-700 text-sm font-sans outline-none"
+      />
+    </div>
+
+    <p class="text-gray-500 text-sm mt-3">
+      Taking advantage of browser's default color picker.
+    </p>
+
+    <button
+      @click="navigator.clipboard.writeText(color); copied = true; setTimeout(() => copied = false, 1500)"
+      class="mt-4 bg-gray-900 text-white text-sm px-4 py-2 rounded-md hover:bg-gray-800 transition cursor-pointer"
+    >
+      <span x-show="!copied">Copy Hex</span>
+      <span x-show="copied" x-transition.opacity>✅ Copied!</span>
+    </button>
+  </div>
+</div>

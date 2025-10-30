@@ -14,68 +14,86 @@ if (localStorage.getItem('theme') === 'dark') {
 // 🌸 COMMAND PALETTE NEO-BRUTALISM
 // ============================
 
-const searchBtn = document.querySelector('[data-open-search]');
-const searchModal = document.querySelector('#searchModal'); // gunakan id yg sama dgn markup modal-mu
-const searchClose = document.querySelector('[data-close-search]');
-const searchInput = document.querySelector('#commandInput'); // input text dalam modal
-const searchItems = document.querySelectorAll('.command-item'); // setiap item command
+const searchModal = document.getElementById('searchModal');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const searchItems = document.querySelectorAll('.command-item');
+const commandList = document.querySelector('#searchModal .max-h-60'); // perbaikan disini
 
-// Fungsi buka modal
+
+let currentIndex = -1;
+
+// buka modal
 function openPalette() {
   searchModal.classList.remove('hidden', 'opacity-0', 'scale-95');
   searchModal.classList.add('flex', 'opacity-100', 'scale-100');
-  setTimeout(() => searchInput?.focus(), 150);
+  setTimeout(() => searchInput.focus(), 150);
 }
 
-// Fungsi tutup modal
+// tutup modal
 function closePalette() {
   searchModal.classList.remove('opacity-100', 'scale-100');
   setTimeout(() => searchModal.classList.add('hidden', 'opacity-0', 'scale-95'), 200);
 }
 
-// Tombol buka
-searchBtn?.addEventListener('click', (e) => {
+searchBtn.addEventListener('click', (e) => {
   e.preventDefault();
   openPalette();
 });
 
-// Tombol close
-searchClose?.addEventListener('click', () => {
-  closePalette();
-});
-
-// Tutup dengan ESC
+// Tutup pakai ESC
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closePalette();
 
-  // Shortcut Ctrl+K / Cmd+K
+  // Ctrl+K atau Cmd+K
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
     e.preventDefault();
     openPalette();
   }
 });
 
-// Filter command berdasarkan input
-searchInput?.addEventListener('input', (e) => {
+// Buat elemen not found (sekali saja)
+const notFoundEl = document.createElement('div');
+notFoundEl.textContent = '⚠️ No Component Found';
+notFoundEl.className = 'text-center text-gray-500 dark:text-neutral-400 py-4 text-sm hidden';
+commandList.appendChild(notFoundEl);
+
+// Filter item
+searchInput.addEventListener('input', (e) => {
   const q = e.target.value.toLowerCase();
+  let anyVisible = false;
+  currentIndex = -1;
+
   searchItems.forEach((item) => {
-    item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none';
+    const match = item.textContent.toLowerCase().includes(q);
+    item.style.display = match ? '' : 'none';
+    if (match) anyVisible = true;
+  });
+
+  // Tampilkan atau sembunyikan teks "No Component Found"
+  notFoundEl.classList.toggle('hidden', anyVisible);
+});
+
+// Navigasi keyboard
+searchInput.addEventListener('keydown', (e) => {
+  const visibleItems = Array.from(searchItems).filter(item => item.style.display !== 'none');
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    currentIndex = (currentIndex + 1) % visibleItems.length;
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+  } else if (e.key === 'Enter' && currentIndex >= 0) {
+    e.preventDefault();
+    visibleItems[currentIndex].click(); // klik link atau tombol
+  }
+
+  visibleItems.forEach((item, i) => {
+    item.classList.toggle('bg-gray-200', i === currentIndex);
   });
 });
 
-// Aksi tiap item command
-searchItems.forEach((item) => {
-  item.addEventListener('click', () => {
-    const text = item.textContent.toLowerCase();
-
-    // Contoh aksi:
-    if (text.includes('home')) window.location.href = '/';
-    if (text.includes('dark')) document.documentElement.classList.toggle('dark');
-    if (text.includes('components')) window.location.href = '/components';
-
-    closePalette();
-  });
-});
 
 // Menu BTN
 const menuBtn = document.querySelector('[data-toggle-menu]');
