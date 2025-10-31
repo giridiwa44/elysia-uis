@@ -133,4 +133,5 @@
            hover:shadow-none transition-all cursor-pointer font-bold text-sm dark:border-white;
   }
 }
+[x-cloak] { display: none !important;}
 

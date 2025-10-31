@@ -1,0 +1,123 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import SelectDemo from "@/components/ui/Select.astro";
+import SelectSearch from "@/components/ui/SelectSearch.astro";
+import Showcase from "@/components/astro/Showcase.astro";
+import RelatedComponent from "@/components/astro/RelatedComponent.astro";
+
+const related = [
+  { name: "Accordion", url: "/docs/accordion", count: 1 },
+  { name: "Color Picker", url: "/docs/colorpicker", count: 1 },
+  { name: "Date Picker", url: "/docs/datepicker", count: 1 },
+  { name: "Alert", url: "/docs/alert", count: 1 },
+];
+
+const selectCode = `
+<div x-data="{ open: false, selected: 'Pilih salah satu', options: ['Alpine.js', 'Tailwind CSS', 'Vue.js', 'React', 'Next.js'] }" class="relative w-64">
+    <h2>Silahkan Pilih Technologies :</h2>
+    <button @click="open = !open" class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-left shadow-sm flex justify-between items-center cursor-pointer -z-10">
+    <span x-text="selected"></span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.24 4.64a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <ul x-show="open" @click.outside="open = false" class="relative  mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto -z-10">
+    <template x-for="option in options" :key="option">
+      <li
+        @click="selected = option; open = false"
+        class="px-4 py-2 hover:bg-indigo-100 cursor-pointer"
+        x-text="option"
+      ></li>
+    </template>
+  </ul>
+</div>
+
+`;
+
+const selectSearchCode = `
+<div 
+  x-data="{
+    open: false,
+    search: '',
+    selected: null,
+    options: ['Alpine.js', 'Tailwind CSS', 'Vue.js', 'React', 'Next.js', 'Nuxt.js', 'Laravel', 'Angular'],
+    get filteredOptions() {
+      return this.options.filter(opt => opt.toLowerCase().includes(this.search.toLowerCase()))
+    }
+  }"
+  class="relative w-80 font-sans"
+>
+  <!-- Tombol utama -->
+  <button 
+    @click="open = !open"
+    class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-left flex justify-between items-center shadow-sm cursor-pointer"
+  >
+    <span x-text="selected ? selected : 'Pilih teknologi...'"></span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.24 4.64a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div 
+    x-show="open"
+    @click.outside="open = false"
+    x-transition
+    class="relative mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg -z-10 "
+  >
+    <!-- Input search -->
+    <div class="p-2">
+      <input 
+      id="search"
+        type="text"
+        x-model="search"
+        placeholder="Cari..."
+        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-indigo-500 outline-none"
+      >
+    </div>
+
+    <ul class="max-h-80 overflow-auto">
+      <template x-for="option in filteredOptions" :key="option">
+        <li 
+          @click="selected = option; open = false; search = ''"
+          class="px-4 py-2 cursor-pointer hover:bg-indigo-100 outline-none"
+          x-text="option"
+        ></li>
+      </template>
+
+      <li x-show="filteredOptions.length === 0" class="px-4 py-2 text-gray-400 text-sm">
+        Tidak ditemukan
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+---
+
+<DocsLayout title="Select">
+  <header class="flex flex-wrap justify-between gap-4 mt-20">
+    <div class="prose dark:prose-invert">
+      <h1 id="accordion-component">Select</h1>
+      <p>A component that helps users select a category.</p>
+    </div>
+  </header>
+
+  <Showcase code={selectCode}>
+    <SelectDemo />
+  </Showcase>
+
+  <header class="flex flex-wrap justify-between gap-4 mt-20">
+    <div class="prose dark:prose-invert">
+      <h1 id="accordion-component">Select Search Variant</h1>
+      <p>A component that helps users select a category.</p>
+    </div>
+  </header>
+
+  <Showcase code={selectSearchCode}>
+    <SelectSearch />
+  </Showcase>
+
+  <RelatedComponent related={related} />
+</DocsLayout>

@@ -1,0 +1,33 @@
+---
+const { related = [] } = Astro.props;
+const relatedJson = JSON.stringify(related);
+---
+
+<section class="border-t pt-6 mt-10 mb-8">
+  <h2 class="text-lg font-semibold mb-4">Related Components</h2>
+
+  <!--
+    - data-related: berisi JSON yang di-render di server (aman)
+    - x-data: inisialisasi dengan array kosong
+    - x-init: parse data dari dataset dan set local 'related'
+  -->
+  <div
+    data-related={relatedJson}
+    x-data="{ related: [] }"
+    x-init="related = JSON.parse($el.dataset.related || '[]')"
+    class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-5"
+  >
+    <template x-for="item in related" :key="item.name">
+      <a
+        :href="item.url"
+        class="border rounded-xl p-4 hover:shadow-md transition bg-white flex items-center gap-3"
+      >
+      <span>🎁</span>
+        <div>
+          <p class="text-xs text-gray-500" x-text="item.count + ' components'"></p>
+          <h3 class="font-semibold" x-text="item.name"></h3>
+        </div>
+      </a>
+    </template>
+  </div>
+</section>

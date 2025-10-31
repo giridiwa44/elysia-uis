@@ -1,0 +1,79 @@
+---
+/**
+ *  Search Select By Giri Diwa Adam
+ *
+ */
+---
+
+<div
+  x-data="{
+    open: false,
+    search: '',
+    selected: null,
+    options: ['Alpine.js', 'Tailwind CSS', 'Vue.js', 'React', 'Next.js', 'Nuxt.js', 'Laravel', 'Angular'],
+    get filteredOptions() {
+      return this.options.filter(opt => opt.toLowerCase().includes(this.search.toLowerCase()))
+    }
+  }"
+  class="relative w-80 font-sans"
+>
+  <h2 class="text-zinc-950 dark:text-zinc-950">
+    Silahkan Pilih Technologies :
+  </h2>
+
+  <!-- Tombol utama -->
+  <button
+    @click="open = !open"
+    class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2 text-left flex justify-between items-center shadow-sm cursor-pointer dark:bg-zinc-950 dark:text-white"
+  >
+    <span x-text="selected ? selected : 'Pilih teknologi...'"></span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5 text-gray-500"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.08 1.04l-4.24 4.64a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    x-show="open"
+    @click.outside="open = false"
+    x-transition
+    class="relative mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10 dark:bg-zinc-950 dark:text-white"
+  >
+    <!-- Input search -->
+    <div class="p-2">
+      <input
+        id="search"
+        type="text"
+        x-model="search"
+        placeholder="Cari..."
+        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-indigo-500 outline-none"
+      />
+    </div>
+
+    <ul class="max-h-80 overflow-auto">
+      <template x-for="option in filteredOptions" :key="option">
+        <li
+          @click="selected = option; open = false; search = ''"
+          class="px-4 py-2 cursor-pointer hover:bg-indigo-100 outline-none"
+          x-text="option"
+        >
+        </li>
+      </template>
+
+      <li
+        x-show="filteredOptions.length === 0"
+        class="px-4 py-2 text-gray-400 text-sm"
+      >
+        Tidak ditemukan
+      </li>
+    </ul>
+  </div>
+</div>
