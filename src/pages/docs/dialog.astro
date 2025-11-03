@@ -1,0 +1,82 @@
+---
+import DialogShow from "@/components/ui/Dialog.astro";
+import Showcase from "@/components/astro/Showcase.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+import RelatedComponent from "@/components/astro/RelatedComponent.astro";
+
+const related = [
+  { name: "Color Picker", url: "/docs/colorpicker", count: 1 },
+  { name: "Select", url: "/docs/select", count: 2 },
+  { name: "Accordion", url:"/docs/accordion", count: 1}
+];
+
+const dialogpick = `
+<div x-data="{ open: false }" class="">
+  <!-- Tombol untuk membuka modal -->
+  <button
+    @click="open = true"
+    class="px-4 py-2 bg-pink-600 text-white rounded-lg shadow hover:bg-pink-700 transition cursor-pointer"
+  >
+    Buka Modal
+  </button>
+
+  <!-- Overlay & Modal -->
+  <div
+    x-show="open"
+    x-transition.opacity
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  >
+    <!-- Dialog box -->
+    <div
+      @click.away="open = false"
+      x-transition.scale.origin.center
+      class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 relative"
+    >
+      <!-- Tombol Close -->
+      <button
+        @click="open = false"
+        class="absolute top-3 right-3 text-gray-700 hover:text-red-500"
+      >
+        ✕
+      </button>
+
+      <!-- Isi Modal -->
+      <h2 class="text-xl font-bold mb-4">Judul Modal</h2>
+      <p class="text-gray-600 mb-6">
+        Ini adalah contoh dialog modal menggunakan Tailwind CSS dan Alpine.js.
+        Kamu bisa menambahkan konten lain di sini.
+      </p>
+
+      <div class="flex justify-end space-x-3">
+        <button
+          @click="open = false"
+          class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition"
+        >
+          Batal
+        </button>
+        <button
+          @click="open = false"
+          class="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition cursor-pointer"
+        >
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+---
+
+<DocsLayout title="Dialog">
+  <header class="flex flex-wrap justify-between gap-4 mt-20">
+    <div class="prose dark:prose-invert">
+      <h1 id="accordion-component">Dialog</h1>
+      <p>A component built using tailwindcss v4, is a responsive component and easy to customize and of course SEO friendly.</p>
+    </div>
+  </header>
+  <Showcase code={dialogpick}>
+    <DialogShow />
+  </Showcase>
+
+  <RelatedComponent related={related} />
+</DocsLayout>
